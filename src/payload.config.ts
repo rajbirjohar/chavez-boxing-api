@@ -20,7 +20,7 @@ export default buildConfig({
   },
   editor: lexicalEditor({}),
   collections: [Users, Recipes],
-  cors: process.env.CORS_URLS.split(",") ?? ["http://localhost:4321"],
+  cors: process.env.CORS_URLS ? process.env.CORS_URLS.split(",") : ["http://localhost:4321"],
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
