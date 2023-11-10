@@ -6,6 +6,7 @@ import {
 } from "@payloadcms/richtext-lexical";
 
 const Recipes: CollectionConfig = {
+  auth: true,
   access: {
     read: () => true,
     create: ({ req: { user } }) => {
@@ -18,7 +19,7 @@ const Recipes: CollectionConfig = {
     },
     delete: ({ req: { user } }) => {
       console.log("deleting: ", user);
-      return true;
+      return !!user;
     },
   },
   slug: "recipes",
