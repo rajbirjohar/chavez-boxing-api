@@ -29,7 +29,6 @@ const afterChangeHook: CollectionAfterChangeHook = async ({
 };
 
 const Recipes: CollectionConfig = {
-  auth: true,
   access: {
     read: () => true,
     create: ({ req: { user } }) => {
