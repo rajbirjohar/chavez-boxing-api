@@ -8,7 +8,10 @@ import {
 const Recipes: CollectionConfig = {
   access: {
     read: () => true,
-    create: ({ req: { user } }) => !!user,
+    create: ({ req: { user } }) => {
+      console.log(user);
+      return true;
+    },
   },
   slug: "recipes",
   fields: [
