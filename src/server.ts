@@ -15,7 +15,8 @@ const start = async () => {
     secret: process.env.PAYLOAD_SECRET,
     express: app,
     onInit: async () => {
-      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
+      console.log('Payload is ready to use!')
+      // payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
     },
   })
 
