@@ -20,7 +20,7 @@ export default buildConfig({
   },
   editor: lexicalEditor({}),
   collections: [Users, Recipes],
-  cors: ["http://localhost:4321", "https://chavez-boxing.vercel.app", process.env.PAYLOAD_PUBLIC_BASE_DNS],
+  cors: ["http://localhost:4321", "https://chavez-boxing.vercel.app", process.env.PAYLOAD_PUBLIC_BASE_DNS ?? ""],
   typescript: {
     outputFile: path.resolve(__dirname, "payload-types.ts"),
   },
