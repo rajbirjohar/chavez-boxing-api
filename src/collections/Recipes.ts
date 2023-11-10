@@ -9,18 +9,18 @@ const Recipes: CollectionConfig = {
   auth: true,
   access: {
     read: () => true,
-    // create: ({ req: { user } }) => {
-    //   console.log("creating: ", user);
-    //   return true;
-    // },
-    // update: ({ req: { user } }) => {
-    //   console.log("updating: ", user);
-    //   return true;
-    // },
-    // delete: ({ req: { user } }) => {
-    //   console.log("deleting: ", user);
-    //   return !!user;
-    // },
+    create: ({ req: { user } }) => {
+      console.log("user", user);
+      return !!user;
+    },
+    update: ({ req: { user } }) => {
+      console.log("user", user);
+      return !!user;
+    },
+    delete: ({ req: { user } }) => {
+      console.log("user", user);
+      return !!user;
+    },
   },
   slug: "recipes",
   fields: [
