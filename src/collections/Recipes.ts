@@ -1,26 +1,49 @@
-import { CollectionConfig } from "payload/types";
+import { CollectionAfterChangeHook, CollectionConfig } from "payload/types";
 import {
   HTMLConverterFeature,
   lexicalEditor,
   lexicalHTML,
 } from "@payloadcms/richtext-lexical";
 
+const afterChangeHook: CollectionAfterChangeHook = async ({
+  doc, // full document data
+  req, // full express request
+  previousDoc, // document data before updating the collection
+  operation, // name of the operation ie. 'create', 'update'
+}) => {
+  const deployHookUrl = `${process.env.DEPLOY_HOOK_URL}`;
+  if (!deployHookUrl) {
+    console.error("No frontend deploy hook URL provided.");
+    return doc;
+  }
+  try {
+    await fetch(deployHookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Frontend rebuild triggered successfully.");
+    return doc;
+  } catch (error) {
+    console.error("Error triggering frontend rebuild:", error);
+  }
+};
+
 const Recipes: CollectionConfig = {
   auth: true,
   access: {
     read: () => true,
     create: ({ req: { user } }) => {
-      console.log("user", user);
       return !!user;
     },
     update: ({ req: { user } }) => {
-      console.log("user", user);
       return !!user;
     },
     delete: ({ req: { user } }) => {
-      console.log("user", user);
       return !!user;
     },
+  },
+  hooks: {
+    afterChange: [afterChangeHook],
   },
   slug: "recipes",
   fields: [
