@@ -10,6 +10,10 @@ import Users from "./collections/Users";
 import Recipes from "./collections/Recipes";
 
 export default buildConfig({
+  serverURL: process.env.PAYLOAD_PUBLIC_BASE_DNS,
+  rateLimit: {
+    trustProxy: true,
+  },
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
