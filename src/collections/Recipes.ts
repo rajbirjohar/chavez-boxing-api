@@ -1,4 +1,8 @@
-import { CollectionAfterChangeHook, CollectionConfig } from "payload/types";
+import {
+  CollectionAfterChangeHook,
+  CollectionAfterDeleteHook,
+  CollectionConfig,
+} from "payload/types";
 import {
   HTMLConverterFeature,
   lexicalEditor,
@@ -21,7 +25,27 @@ const afterChangeHook: CollectionAfterChangeHook = async ({
       method: "POST",
       headers: { "Content-Type": "application/json" },
     });
-    console.log("Frontend rebuild triggered successfully.");
+    console.log("Frontend rebuild triggered successfully from Change Hook.");
+    return doc;
+  } catch (error) {
+    console.error("Error triggering frontend rebuild:", error);
+  }
+};
+
+const afterDeleteHook: CollectionAfterDeleteHook = async ({
+  doc, // full document data
+}) => {
+  const deployHookUrl = `${process.env.DEPLOY_HOOK_URL}`;
+  if (!deployHookUrl) {
+    console.error("No frontend deploy hook URL provided.");
+    return doc;
+  }
+  try {
+    await fetch(deployHookUrl, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log("Frontend rebuild triggered successfully from Delete Hook.");
     return doc;
   } catch (error) {
     console.error("Error triggering frontend rebuild:", error);
@@ -43,6 +67,7 @@ const Recipes: CollectionConfig = {
   },
   hooks: {
     afterChange: [afterChangeHook],
+    afterDelete: [afterDeleteHook],
   },
   slug: "recipes",
   fields: [
