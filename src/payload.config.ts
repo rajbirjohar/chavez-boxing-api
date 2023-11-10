@@ -9,8 +9,6 @@ import { buildConfig } from "payload/config";
 import Users from "./collections/Users";
 import Recipes from "./collections/Recipes";
 
-require('dotenv').config()
-
 export default buildConfig({
   serverURL: process.env.PAYLOAD_PUBLIC_BASE_DNS,
   rateLimit: {
