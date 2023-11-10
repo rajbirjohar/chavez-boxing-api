@@ -9,7 +9,15 @@ const Recipes: CollectionConfig = {
   access: {
     read: () => true,
     create: ({ req: { user } }) => {
-      console.log(user);
+      console.log("creating: ", user);
+      return true;
+    },
+    update: ({ req: { user } }) => {
+      console.log("updating: ", user);
+      return true;
+    },
+    delete: ({ req: { user } }) => {
+      console.log("deleting: ", user);
       return true;
     },
   },
