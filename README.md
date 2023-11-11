@@ -1,42 +1,68 @@
-# Payload Blank Template
+# Chavez Boxing API
 
-A blank template for [Payload](https://github.com/payloadcms/payload) to help you get up and running quickly. This repo may have been created by running `npx create-payload-app@latest` and selecting the "blank" template or by cloning this template on [Payload Cloud](https://payloadcms.com/new/clone/blank).
+This project is the backend API for the Chavez Boxing website. It's built using Payload, a headless CMS that provides a robust and flexible solution for our content management needs. This repository is not an open-source project but is made public for educational and reference purposes.
 
-See the official [Examples Directory](https://github.com/payloadcms/payload/tree/main/examples) for details on how to use Payload in a variety of different ways.
+The API is not for public use, but you can see the live site at [chavez-boxing.vercel.app](https://chavez-boxing.vercel.app).
 
-## Development
+## Table of Contents
 
-To spin up the project locally, follow these steps:
+- [Prerequisites](#prerequisites)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [License](#license)
 
-1. First clone the repo
-1. Then `cd YOUR_PROJECT_REPO && cp .env.example .env`
-1. Next `yarn && yarn dev` (or `docker-compose up`, see [Docker](#docker))
-1. Now `open http://localhost:8000/admin` to access the admin panel
-1. Create your first admin user using the form on the page
+## Prerequisites
 
-That's it! Changes made in `./src` will be reflected in your app.
+Before starting, ensure you meet the following requirements:
 
-### Docker
+- You have installed the latest version of `node`
+- You have installed the latest version of `pnpm`. You can install it with `npm i -g pnpm` (or choose your favorite package manager).
+- Access to a MongoDB database. You can set one up for free at [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
-Alternatively, you can use [Docker](https://www.docker.com) to spin up this project locally. To do so, follow these steps:
+## Installation
 
-1. Follow [steps 1 and 2 from above](#development), the docker-compose file will automatically use the `.env` file in your project root
-1. Next run `docker-compose up`
-1. Follow [steps 4 and 5 from above](#development) to login and create your first admin user
+To set up the project locally:
 
-That's it! The Docker instance will help you get up and running quickly while also standardizing the development environment across your teams.
+```bash
+git clone https://github.com/rajbirjohar/chavez-boxing-api
+cd chavez-boxing-api
+pnpm install
+```
 
-## Production
+Create an `.env` file in the root of the project and add the following:
 
-To run Payload in production, you need to build and serve the Admin panel. To do so, follow these steps:
+```bash
+DATABASE_URI=<your-mongodb-uri>
+PAYLOAD_SECRET=<your-payload-secret> // It should be a unique random string
+DEPLOY_HOOK_URL=<your-vercel-deploy-hook-url> // This is used for redeploying your frontend when you publish changes
+CORS_URLS=http://localhost:4321 // This is the URL(s) for the frontend
+PAYLOAD_PUBLIC_BASE_DNS=http://localhost:8000 // This is the PUBLIC URL for the backend. Note that this is the PUBLIC URL, not the PRIVATE URL because Payload needs to use it on the client and you don't want to expose sensitive information.
+```
 
-1. First invoke the `payload build` script by running `yarn build` or `npm run build` in your project root. This creates a `./build` directory with a production-ready admin bundle.
-1. Then run `yarn serve` or `npm run serve` to run Node in production and serve Payload from the `./build` directory.
+## Usage
 
-### Deployment
+To start the development server, run:
 
-The easiest way to deploy your project is to use [Payload Cloud](https://payloadcms.com/new/import), a one-click hosting solution to deploy production-ready instances of your Payload apps directly from your GitHub repo. You can also deploy your app manually, check out the [deployment documentation](https://payloadcms.com/docs/production/deployment) for full details.
+```bash
+pnpm run dev
+```
 
-## Questions
+And open up `http://localhost:8000/admin` in your browser.
 
-If you have any issues or questions, reach out to us on [Discord](https://discord.com/invite/payload) or start a [GitHub discussion](https://github.com/payloadcms/payload/discussions).
+## Deployment
+
+I deployed this project on [North Flank](https://northflank.com/). It's a great service that provides a free tier for small projects like this one. I followed this [guide](https://northflank.com/guides/deploying-payload-cms) to set up the deployment. Note, I skipped the section on adding a Mongodb addon because I already had a database set up.
+
+If you run into the issue where you cannot perform any actions on the admin dashboard, read the very bottom where the guide states to have `https://` as part of the `PAYLOAD_PUBLIC_BASE_DNS`. This was my issue and it was really frustrating to figure out (my fault for not reading).
+
+Ensure you add all your environment variables to North Flank as well.
+
+## Contributing
+
+While the project is public, I am not accepting contributions at this time unless the site needs a bug fix. If you have any questions, feel free to reach out to me at hello@rajbir.io. This repo is meant to be a reference for anyone looking to build a simple full-stack site with Astro and Payload.
+
+## License
+
+It's simple. Don't take credit for what you didn't do. If you want to use this code, feel free to do so, but please don't claim it as your own. I spent time building this, and I would appreciate it if you gave me credit for it. Thanks!
