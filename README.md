@@ -19,6 +19,7 @@ Before starting, ensure you meet the following requirements:
 
 - You have installed the latest version of `node`
 - You have installed the latest version of `pnpm`. You can install it with `npm i -g pnpm` (or choose your favorite package manager).
+    - If you use another package manager, you will need to update the `Dockerfile` to use it.
 - Access to a MongoDB database. You can set one up for free at [MongoDB Atlas](https://www.mongodb.com/atlas/database).
 
 ## Installation
